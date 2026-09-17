@@ -1,0 +1,14 @@
+
+    
+    
+    
+    create table MARKETING_DB.RAW.channels (channel text,channel_type text,is_paid boolean,description text)
+  ;
+    -- dbt seed --
+    
+            insert into MARKETING_DB.RAW.channels (channel, channel_type, is_paid, description) values
+            (%s,%s,%s,%s),(%s,%s,%s,%s),(%s,%s,%s,%s),(%s,%s,%s,%s),(%s,%s,%s,%s)
+        
+
+;
+  
