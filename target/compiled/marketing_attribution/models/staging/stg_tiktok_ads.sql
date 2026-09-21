@@ -13,4 +13,4 @@ select
     event_timestamp,
     cost,
 
-from MARKETING_DB.RAW.raw_tiktok_ads
+from `project-b8fc8724-8adc-4499-9a4`.`raw`.`raw_tiktok_ads`

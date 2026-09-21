@@ -1,48 +1,10 @@
 
-  create or replace   view MARKETING_DB.RAW.stg_web_events
-  
-    
-    
-(
-  
-    "CHANNEL_EVENT_ID" COMMENT $$$$, 
-  
-    "CHANNEL" COMMENT $$$$, 
-  
-    "USER_ID" COMMENT $$$$, 
-  
-    "CAMPAIGN_ID" COMMENT $$$$, 
-  
-    "GROUP_ID" COMMENT $$$$, 
-  
-    "CREATIVE_ID" COMMENT $$$$, 
-  
-    "KEYWORD" COMMENT $$$$, 
-  
-    "PLACEMENT" COMMENT $$$$, 
-  
-    "EVENT_TYPE" COMMENT $$$$, 
-  
-    "EVENT_TIMESTAMP" COMMENT $$$$, 
-  
-    "COST" COMMENT $$$$, 
-  
-    "SESSION_ID" COMMENT $$$$, 
-  
-    "PAGE_URL" COMMENT $$$$, 
-  
-    "REFERRER" COMMENT $$$$, 
-  
-    "UTM_SOURCE" COMMENT $$$$, 
-  
-    "UTM_MEDIUM" COMMENT $$$$, 
-  
-    "PAYLOAD" COMMENT $$$$
-  
-)
 
-   as (
-    
+  create or replace view `project-b8fc8724-8adc-4499-9a4`.`raw`.`stg_web_events`
+  OPTIONS(
+      description=""""""
+    )
+  as 
 
 select
     event_id                        as channel_event_id,
@@ -64,6 +26,5 @@ select
     utm_medium,
     payload,
 
-from MARKETING_DB.RAW.raw_web_events
-  );
+from `project-b8fc8724-8adc-4499-9a4`.`raw`.`raw_web_events`;
 

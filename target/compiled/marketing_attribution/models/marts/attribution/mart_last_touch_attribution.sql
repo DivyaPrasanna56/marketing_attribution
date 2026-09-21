@@ -8,7 +8,7 @@ with last_touches as (
         user_id,
         channel,
         revenue
-    from MARKETING_DB.RAW.int_conversion_paths
+    from `project-b8fc8724-8adc-4499-9a4`.`raw`.`int_conversion_paths`
     where is_last_touch
 )
 
@@ -18,10 +18,12 @@ select
     count(distinct conversion_id)                  as attributed_conversions,
     sum(revenue)                                   as attributed_revenue,
     
-    case when (select sum(revenue) from last_touches) = 0 or (select sum(revenue) from last_touches) is null
-         then null
-         else (sum(revenue))::float / ((select sum(revenue) from last_touches))::float
-    end
+
+    SAFE_DIVIDE(
+        CAST(sum(revenue) AS FLOAT64),
+        CAST((select sum(revenue) from last_touches) AS FLOAT64)
+    )
+
  as attributed_share
 from last_touches
 group by channel

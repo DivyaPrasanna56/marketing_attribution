@@ -9,10 +9,12 @@ select
     impressions,
     clicks,
     
-    case when nullif(impressions, 0) = 0 or nullif(impressions, 0) is null
-         then null
-         else (clicks)::float / (nullif(impressions, 0))::float
-    end
+
+    SAFE_DIVIDE(
+        CAST(clicks AS FLOAT64),
+        CAST(nullif(impressions, 0) AS FLOAT64)
+    )
+
  as ctr,
 
-from MARKETING_DB.RAW.raw_ad_spend
+from `project-b8fc8724-8adc-4499-9a4`.`raw`.`raw_ad_spend`

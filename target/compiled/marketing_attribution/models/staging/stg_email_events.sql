@@ -13,4 +13,4 @@ select
     event_timestamp,
     0.0                             as cost,
 
-from MARKETING_DB.RAW.raw_email_events
+from `project-b8fc8724-8adc-4499-9a4`.`raw`.`raw_email_events`

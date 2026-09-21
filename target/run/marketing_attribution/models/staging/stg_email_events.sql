@@ -1,36 +1,10 @@
 
-  create or replace   view MARKETING_DB.RAW.stg_email_events
-  
-    
-    
-(
-  
-    "CHANNEL_EVENT_ID" COMMENT $$$$, 
-  
-    "CHANNEL" COMMENT $$$$, 
-  
-    "USER_ID" COMMENT $$$$, 
-  
-    "CAMPAIGN_ID" COMMENT $$$$, 
-  
-    "GROUP_ID" COMMENT $$$$, 
-  
-    "CREATIVE_ID" COMMENT $$$$, 
-  
-    "KEYWORD" COMMENT $$$$, 
-  
-    "PLACEMENT" COMMENT $$$$, 
-  
-    "EVENT_TYPE" COMMENT $$$$, 
-  
-    "EVENT_TIMESTAMP" COMMENT $$$$, 
-  
-    "COST" COMMENT $$$$
-  
-)
 
-   as (
-    
+  create or replace view `project-b8fc8724-8adc-4499-9a4`.`raw`.`stg_email_events`
+  OPTIONS(
+      description=""""""
+    )
+  as 
 
 select
     email_event_id                  as channel_event_id,
@@ -45,6 +19,5 @@ select
     event_timestamp,
     0.0                             as cost,
 
-from MARKETING_DB.RAW.raw_email_events
-  );
+from `project-b8fc8724-8adc-4499-9a4`.`raw`.`raw_email_events`;
 

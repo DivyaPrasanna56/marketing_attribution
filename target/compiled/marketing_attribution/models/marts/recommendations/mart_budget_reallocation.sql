@@ -1,7 +1,7 @@
 
 
 with cmp as (
-    select * from MARKETING_DB.ANALYTICS.mart_channel_roas_compared
+    select * from `project-b8fc8724-8adc-4499-9a4`.`ANALYTICS`.`mart_channel_roas_compared`
 ),
 spend_total as (
     select sum(total_spend) as budget from cmp

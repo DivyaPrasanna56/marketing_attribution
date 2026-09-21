@@ -1,24 +1,10 @@
 
-  create or replace   view MARKETING_DB.RAW.stg_user_identity
-  
-    
-    
-(
-  
-    "USER_ID" COMMENT $$$$, 
-  
-    "CANONICAL_USER_ID" COMMENT $$$$, 
-  
-    "EMAIL_HASH" COMMENT $$$$, 
-  
-    "FIRST_SEEN_AT" COMMENT $$$$, 
-  
-    "LAST_SEEN_AT" COMMENT $$$$
-  
-)
 
-   as (
-    
+  create or replace view `project-b8fc8724-8adc-4499-9a4`.`raw`.`stg_user_identity`
+  OPTIONS(
+      description=""""""
+    )
+  as 
 
 select
     user_id,
@@ -27,6 +13,5 @@ select
     first_seen_at,
     last_seen_at,
 
-from MARKETING_DB.RAW.raw_user_identity
-  );
+from `project-b8fc8724-8adc-4499-9a4`.`raw`.`raw_user_identity`;
 

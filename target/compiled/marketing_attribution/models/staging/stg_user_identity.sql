@@ -7,4 +7,4 @@ select
     first_seen_at,
     last_seen_at,
 
-from MARKETING_DB.RAW.raw_user_identity
+from `project-b8fc8724-8adc-4499-9a4`.`raw`.`raw_user_identity`

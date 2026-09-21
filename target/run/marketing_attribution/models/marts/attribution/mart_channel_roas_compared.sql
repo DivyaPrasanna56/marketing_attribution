@@ -2,9 +2,17 @@
   
     
 
-        create or replace transient table MARKETING_DB.ANALYTICS.mart_channel_roas_compared
-         as
-        (
+    create or replace table `project-b8fc8724-8adc-4499-9a4`.`ANALYTICS`.`mart_channel_roas_compared`
+      
+    
+    
+
+    
+    OPTIONS(
+      description="""Side-by-side comparison of all 5 models with cost and ROAS"""
+    )
+    as (
+      
 
 -- =====================================================================
 -- The dissertation's headline output: same revenue, five attribution
@@ -13,24 +21,24 @@
 
 with all_models as (
     select model, channel, attributed_conversions, attributed_revenue, attributed_share
-      from MARKETING_DB.ANALYTICS.mart_first_touch_attribution
+      from `project-b8fc8724-8adc-4499-9a4`.`ANALYTICS`.`mart_first_touch_attribution`
     union all
     select model, channel, attributed_conversions, attributed_revenue, attributed_share
-      from MARKETING_DB.ANALYTICS.mart_last_touch_attribution
+      from `project-b8fc8724-8adc-4499-9a4`.`ANALYTICS`.`mart_last_touch_attribution`
     union all
     select model, channel, attributed_conversions, attributed_revenue, attributed_share
-      from MARKETING_DB.ANALYTICS.mart_linear_attribution
+      from `project-b8fc8724-8adc-4499-9a4`.`ANALYTICS`.`mart_linear_attribution`
     union all
     select model, channel, attributed_conversions, attributed_revenue, attributed_share
-      from MARKETING_DB.ANALYTICS.mart_time_decay_attribution
+      from `project-b8fc8724-8adc-4499-9a4`.`ANALYTICS`.`mart_time_decay_attribution`
     union all
     select model, channel, attributed_conversions, attributed_revenue, attributed_share
-      from MARKETING_DB.ANALYTICS.mart_markov_attribution
+      from `project-b8fc8724-8adc-4499-9a4`.`ANALYTICS`.`mart_markov_attribution`
 ),
 
 channel_spend as (
     select channel, sum(spend_amount) as total_spend
-      from MARKETING_DB.RAW.stg_ad_spend
+      from `project-b8fc8724-8adc-4499-9a4`.`raw`.`stg_ad_spend`
      group by 1
 )
 
@@ -42,14 +50,15 @@ select
     a.attributed_share,
     coalesce(s.total_spend, 0)                                  as total_spend,
     
-    case when nullif(s.total_spend, 0) = 0 or nullif(s.total_spend, 0) is null
-         then null
-         else (a.attributed_revenue)::float / (nullif(s.total_spend, 0))::float
-    end
+
+    SAFE_DIVIDE(
+        CAST(a.attributed_revenue AS FLOAT64),
+        CAST(nullif(s.total_spend, 0) AS FLOAT64)
+    )
+
  as roas
 from all_models a
 left join channel_spend s on a.channel = s.channel
 order by a.model, a.attributed_revenue desc
-        );
-      
+    );
   

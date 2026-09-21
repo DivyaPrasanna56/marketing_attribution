@@ -2,12 +2,20 @@
   
     
 
-        create or replace transient table MARKETING_DB.ANALYTICS.mart_budget_reallocation
-         as
-        (
+    create or replace table `project-b8fc8724-8adc-4499-9a4`.`ANALYTICS`.`mart_budget_reallocation`
+      
+    
+    
+
+    
+    OPTIONS(
+      description="""Recommended budget per channel, by attribution model"""
+    )
+    as (
+      
 
 with cmp as (
-    select * from MARKETING_DB.ANALYTICS.mart_channel_roas_compared
+    select * from `project-b8fc8724-8adc-4499-9a4`.`ANALYTICS`.`mart_channel_roas_compared`
 ),
 spend_total as (
     select sum(total_spend) as budget from cmp
@@ -32,6 +40,5 @@ realloc as (
 select *
 from realloc
 order by model, recommended_change_pct desc nulls last
-        );
-      
+    );
   

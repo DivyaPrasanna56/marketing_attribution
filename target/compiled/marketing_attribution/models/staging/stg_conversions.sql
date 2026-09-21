@@ -8,4 +8,4 @@ select
     conversion_timestamp,
     cast(conversion_timestamp as date)  as conversion_date,
 
-from MARKETING_DB.RAW.raw_conversions
+from `project-b8fc8724-8adc-4499-9a4`.`raw`.`raw_conversions`

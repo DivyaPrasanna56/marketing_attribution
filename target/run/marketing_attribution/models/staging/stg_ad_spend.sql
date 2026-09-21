@@ -1,30 +1,10 @@
 
-  create or replace   view MARKETING_DB.RAW.stg_ad_spend
-  
-    
-    
-(
-  
-    "SPEND_ID" COMMENT $$$$, 
-  
-    "SPEND_DATE" COMMENT $$$$, 
-  
-    "CHANNEL" COMMENT $$$$, 
-  
-    "CAMPAIGN_ID" COMMENT $$$$, 
-  
-    "SPEND_AMOUNT" COMMENT $$$$, 
-  
-    "IMPRESSIONS" COMMENT $$$$, 
-  
-    "CLICKS" COMMENT $$$$, 
-  
-    "CTR" COMMENT $$$$
-  
-)
 
-   as (
-    
+  create or replace view `project-b8fc8724-8adc-4499-9a4`.`raw`.`stg_ad_spend`
+  OPTIONS(
+      description=""""""
+    )
+  as 
 
 select
     spend_id,
@@ -35,12 +15,13 @@ select
     impressions,
     clicks,
     
-    case when nullif(impressions, 0) = 0 or nullif(impressions, 0) is null
-         then null
-         else (clicks)::float / (nullif(impressions, 0))::float
-    end
+
+    SAFE_DIVIDE(
+        CAST(clicks AS FLOAT64),
+        CAST(nullif(impressions, 0) AS FLOAT64)
+    )
+
  as ctr,
 
-from MARKETING_DB.RAW.raw_ad_spend
-  );
+from `project-b8fc8724-8adc-4499-9a4`.`raw`.`raw_ad_spend`;
 

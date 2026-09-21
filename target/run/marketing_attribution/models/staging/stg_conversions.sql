@@ -1,26 +1,10 @@
 
-  create or replace   view MARKETING_DB.RAW.stg_conversions
-  
-    
-    
-(
-  
-    "CONVERSION_ID" COMMENT $$$$, 
-  
-    "USER_ID" COMMENT $$$$, 
-  
-    "CONVERSION_TYPE" COMMENT $$$$, 
-  
-    "REVENUE" COMMENT $$$$, 
-  
-    "CONVERSION_TIMESTAMP" COMMENT $$$$, 
-  
-    "CONVERSION_DATE" COMMENT $$$$
-  
-)
 
-   as (
-    
+  create or replace view `project-b8fc8724-8adc-4499-9a4`.`raw`.`stg_conversions`
+  OPTIONS(
+      description=""""""
+    )
+  as 
 
 select
     conversion_id,
@@ -30,6 +14,5 @@ select
     conversion_timestamp,
     cast(conversion_timestamp as date)  as conversion_date,
 
-from MARKETING_DB.RAW.raw_conversions
-  );
+from `project-b8fc8724-8adc-4499-9a4`.`raw`.`raw_conversions`;
 

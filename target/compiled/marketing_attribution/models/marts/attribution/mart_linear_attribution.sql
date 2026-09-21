@@ -8,7 +8,7 @@ with path_credits as (
         channel,
         -- Each touchpoint receives revenue / path_length
         sum(revenue / nullif(path_length, 0)) as channel_revenue
-    from MARKETING_DB.RAW.int_conversion_paths
+    from `project-b8fc8724-8adc-4499-9a4`.`raw`.`int_conversion_paths`
     group by conversion_id, channel
 )
 
@@ -18,10 +18,12 @@ select
     count(distinct conversion_id)                  as attributed_conversions,
     sum(channel_revenue)                           as attributed_revenue,
     
-    case when (select sum(channel_revenue) from path_credits) = 0 or (select sum(channel_revenue) from path_credits) is null
-         then null
-         else (sum(channel_revenue))::float / ((select sum(channel_revenue) from path_credits))::float
-    end
+
+    SAFE_DIVIDE(
+        CAST(sum(channel_revenue) AS FLOAT64),
+        CAST((select sum(channel_revenue) from path_credits) AS FLOAT64)
+    )
+
  as attributed_share
 from path_credits
 group by channel

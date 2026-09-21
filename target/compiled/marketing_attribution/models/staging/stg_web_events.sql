@@ -20,4 +20,4 @@ select
     utm_medium,
     payload,
 
-from MARKETING_DB.RAW.raw_web_events
+from `project-b8fc8724-8adc-4499-9a4`.`raw`.`raw_web_events`

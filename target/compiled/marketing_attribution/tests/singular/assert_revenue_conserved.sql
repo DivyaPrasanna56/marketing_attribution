@@ -3,11 +3,11 @@
 
 with totals as (
     select model, sum(attributed_revenue) as total_attributed
-      from MARKETING_DB.ANALYTICS.mart_channel_roas_compared
+      from `project-b8fc8724-8adc-4499-9a4`.`ANALYTICS`.`mart_channel_roas_compared`
      group by 1
 ),
 expected as (
-    select sum(revenue) as expected_total from MARKETING_DB.RAW.stg_conversions
+    select sum(revenue) as expected_total from `project-b8fc8724-8adc-4499-9a4`.`raw`.`stg_conversions`
 )
 select t.model, t.total_attributed, e.expected_total,
        abs(t.total_attributed - e.expected_total) as delta
